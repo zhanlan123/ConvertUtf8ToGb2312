@@ -1,0 +1,4 @@
+# ConvertUtf8ToGb2312
+ConvertUtf8ToGb2312
+
+由于linux上使用utf-8编码，sourceinsight并不支持utf-8，使用sourceinsight阅读linux项目源代码时，经常会出现中文乱码，本工程主要用于实现转码功能，将utf-8文件转换为sourceinsight可识别的gb2312编码。
