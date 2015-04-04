@@ -54,7 +54,11 @@ void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile* c
 
 void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename)
 {
+
 	string path_old = string(directory_old).append("/").append(filename);
+
+	cout << "converting file " << path_old.c_str()<<endl;
+
 	string tmpfile_name = string(filename).append(".tmp");
 	string path_new = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
 	FILE *tmpfile,*file;
@@ -202,7 +206,7 @@ void Utf8toGb2312::UnicodeToGB2312(char*pOut, char *pInput)
 void Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 {
 	int res, i = 0, j = 0, num = 0;
-	char tempbuf[2];
+	char tempbuf[10];
 	memset(tempbuf, 0, sizeof(tempbuf));
 	while (i < pLen)
 	{
