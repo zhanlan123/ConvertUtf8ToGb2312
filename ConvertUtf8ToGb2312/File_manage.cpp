@@ -33,7 +33,7 @@ void File_manage::file_delete(const char* path)
 		SetFileAttributesA(path, 0);
 		DeleteFileA(path);
 	}
-}
+} 
 
 //directory为空表示当前路径
 void File_manage::file_delete(const char* directory, const char* filename)

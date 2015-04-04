@@ -4,7 +4,8 @@
 using namespace std;
 
 static vector<string> system_filter = { "cpp", "h", "txt", "java", "hpp", "php" };
-static vector<char> system_splits = {',',' '};
+
+static vector<char> system_splits = {',',' '};//支持使用空格或者','分开
 
 class Configfile
 {
