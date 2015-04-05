@@ -18,7 +18,7 @@ private:
 	static Utf8toGb2312* instance;
 
 	Utf8toGb2312(){}
-	void UTF_8ToGB2312(char*pOut, char *pInput, int pLen);
+	bool UTF_8ToGB2312(char*pOut, char *pInput, int pLen);
 	int UTF_8ToUnicode(char* pOutput, char *pInput);
 	void UnicodeToGB2312(char*pOut, char *pInput);
 	//获取utf编码长度

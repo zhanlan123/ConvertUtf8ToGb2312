@@ -5,7 +5,7 @@ int main()
 {
 	Configfile *config=new Configfile("cpp,h");
 
-	Utf8toGb2312::GetInstance()->Conv_Utf8_files("D:/TeamTalk_master", config, NULL, true);
+	Utf8toGb2312::GetInstance()->Conv_Utf8_files("D:/shuju", config, NULL, true);
 
 	cout << "all done\n";
 

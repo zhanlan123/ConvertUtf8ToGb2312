@@ -60,9 +60,9 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 	cout << "converting file " << path_old.c_str()<<endl;
 
 	string tmpfile_name = string(filename).append(".tmp");
-	string path_new = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
+	string path_tmp = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
 	FILE *tmpfile,*file;
-	tmpfile = File_manage::file_open(path_new.c_str(), "w");
+	tmpfile = File_manage::file_open(path_tmp.c_str(), "w");
 	file = File_manage::file_open(path_old.c_str(), "r");
 	if ((tmpfile == NULL) || (file==NULL))
 		return;
@@ -71,7 +71,14 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 	while (fgets(buf, BUFFERSIZE, file))
 	{
 		memset(buf2, 0, sizeof(buf2));
-		UTF_8ToGB2312(buf2, buf, strlen(buf));
+		if (!UTF_8ToGB2312(buf2, buf, strlen(buf)))
+		{//转换过程中出现问题
+
+			File_manage::file_close(tmpfile);
+			File_manage::file_close(file);
+			File_manage::file_delete(path_tmp.c_str());
+			return;
+		}
 		fputs(buf2, tmpfile);
 	}
 	File_manage::file_close(tmpfile);
@@ -86,7 +93,7 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 		File_manage::file_delete(path_pre.c_str());
 	}
 	else{
-		File_manage::file_rename(directory_old, tmpfile_name.c_str(), filename);
+		File_manage::file_rename(directory_new, tmpfile_name.c_str(), filename);
 	}
 }
 
@@ -203,7 +210,7 @@ void Utf8toGb2312::UnicodeToGB2312(char*pOut, char *pInput)
 	memcpy(pOut, &gb2312_tmp, 2);
 }
 
-void Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
+bool Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 {
 	int res, i = 0, j = 0, num = 0;
 	char tempbuf[10];
@@ -212,7 +219,7 @@ void Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 	{
 		res = UTF_8ToUnicode(tempbuf, pInput + i);
 		if (res <= 0)
-			return;
+			return false;
 		else if (res == 1)
 		{
 			*(pOut + j) = *(pInput + i);
@@ -226,6 +233,8 @@ void Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 		}
 		i += res;
 	}
+
+	return true;
 }
 
 
