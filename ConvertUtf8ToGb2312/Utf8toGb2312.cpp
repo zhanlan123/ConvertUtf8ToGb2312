@@ -60,7 +60,7 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 	FILE *file = File_manage::file_open(path_old.c_str(), "r");
 	if ((tmpfile == NULL) || (file==NULL))
 		return;
-	bool sucess=true;
+
 	char buf[BUFFERSIZE], buf2[BUFFERSIZE*6];
 	while (fgets(buf, BUFFERSIZE, file))
 	{
