@@ -13,11 +13,8 @@ Utf8toGb2312* Utf8toGb2312::GetInstance()
 	return instance;
 }
 
-void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile* config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
+void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
 {
-	Configfile *conf = (Configfile *)config;
-	if (conf == NULL)
-		conf = new Configfile;
 	//文件句柄
 	long   hFile = 0;
 	//文件信息
@@ -39,18 +36,17 @@ void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile* c
 				string cas_new_directory_s=string(directory_new).append("/").append(fileinfo.name);
 				cas_new_directory = cas_new_directory_s.c_str();
 			}
-			Conv_Utf8_files(cas_old_directory.c_str(), conf, cas_new_directory, cascade);
+			Conv_Utf8_files(cas_old_directory.c_str(), config, cas_new_directory, cascade);
 		}
 		else
 		{
-			if (conf->check_file_support(fileinfo.name))
+			if (config.check_file_support(fileinfo.name))
 				Conv_Utf8_file(directory_old, directory_new, fileinfo.name);
 		}
 	} while (_findnext(hFile, &fileinfo) == 0);
 
 	_findclose(hFile);
 }
-
 
 void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename)
 {
@@ -98,31 +94,31 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 	}
 }
 
-unsigned short Utf8toGb2312::SearchCodeTable(unsigned short unicode)
+bool Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 {
-	int mid, start = 0, end = TABLE_LEN - 1;
-	while (start <= end)
+	int res, i = 0, j = 0, num = 0;
+	char tempbuf[10];
+	memset(tempbuf, 0, sizeof(tempbuf));
+	while (i < pLen)
 	{
-		mid = (start + end) / 2;
-		if (unicode_gb_table[mid].unicode == unicode)
-			return unicode_gb_table[mid].gb2312;
-		else if (unicode_gb_table[mid].unicode < unicode)
-			start = mid + 1;
-		else
-			end = mid - 1;
-	}
-	return 0;
-}
+		res = UTF_8ToUnicode(tempbuf, pInput + i);
+		if (res <= 0)
+			return false;
+		else if (res == 1)
+		{
+			*(pOut + j) = *(pInput + i);
+			j += 1;
 
-int Utf8toGb2312::enc_get_utf8_size(const unsigned char pInput)
-{
-	int num = 0, temp = 0x80;
-	while (temp&pInput)
-	{
-		num++;
-		temp = (temp >> 1);
+		}
+		else{
+			UnicodeToGB2312(pOut + j, tempbuf);
+			j += 2;
+			num++;
+		}
+		i += res;
 	}
-	return num;
+
+	return true;
 }
 
 int Utf8toGb2312::UTF_8ToUnicode(char* pOutput, char *pInput)
@@ -211,31 +207,34 @@ void Utf8toGb2312::UnicodeToGB2312(char*pOut, char *pInput)
 	memcpy(pOut, &gb2312_tmp, 2);
 }
 
-bool Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
+unsigned short Utf8toGb2312::SearchCodeTable(unsigned short unicode)
 {
-	int res, i = 0, j = 0, num = 0;
-	char tempbuf[10];
-	memset(tempbuf, 0, sizeof(tempbuf));
-	while (i < pLen)
+	int mid, start = 0, end = TABLE_LEN - 1;
+	while (start <= end)
 	{
-		res = UTF_8ToUnicode(tempbuf, pInput + i);
-		if (res <= 0)
-			return false;
-		else if (res == 1)
-		{
-			*(pOut + j) = *(pInput + i);
-			j += 1;
-
-		}
-		else{
-			UnicodeToGB2312(pOut + j, tempbuf);
-			j += 2;
-			num++;
-		}
-		i += res;
+		mid = (start + end) / 2;
+		if (unicode_gb_table[mid].unicode == unicode)
+			return unicode_gb_table[mid].gb2312;
+		else if (unicode_gb_table[mid].unicode < unicode)
+			start = mid + 1;
+		else
+			end = mid - 1;
 	}
-
-	return true;
+	return 0;
 }
+
+int Utf8toGb2312::enc_get_utf8_size(const unsigned char pInput)
+{
+	int num = 0, temp = 0x80;
+	while (temp&pInput)
+	{
+		num++;
+		temp = (temp >> 1);
+	}
+	return num;
+}
+
+
+
 
 

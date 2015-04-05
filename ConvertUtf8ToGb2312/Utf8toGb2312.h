@@ -12,7 +12,7 @@ class Utf8toGb2312
 public:
 	static Utf8toGb2312* GetInstance();
 	//转换目录下所有文件，cascade设置是否转换子目录下文件，type为转换文件类型(如*.cpp)，默认为*.*, 即所有文件
-	void Conv_Utf8_files(const char* directory_old,const Configfile *config=NULL,const char* directory_new=NULL,  bool cascade = false);
+	void Conv_Utf8_files(const char* directory_old,const Configfile config,const char* directory_new=NULL,  bool cascade = false);
 	void Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename);
 private:
 	static Utf8toGb2312* instance;

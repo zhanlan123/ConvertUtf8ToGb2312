@@ -47,7 +47,7 @@ void Configfile::config_filter(const char* filters_in)
 	}
 }
 
-bool Configfile::check_filter(const char* filter)
+bool Configfile::check_filter(const char* filter) const
 {//判断给定的文件类型是否支持
 	bool result=false;
 	vector<string>::const_iterator iter = system_filter.begin();
@@ -62,7 +62,7 @@ bool Configfile::check_filter(const char* filter)
 	return result;
 }
 
-char* Configfile::filter_splite(char* filters)
+char* Configfile::filter_splite(char* filters) const
 {
 	char* result = NULL,*p;
 	vector<char>::const_iterator iter=system_splits.begin();
@@ -76,7 +76,7 @@ char* Configfile::filter_splite(char* filters)
 	return result;
 }
 
-bool Configfile::check_file_support(const char* filename)
+bool Configfile::check_file_support(const char* filename) const
 {
 	const char *pre = NULL, *p = filename;
 
