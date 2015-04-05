@@ -24,6 +24,8 @@ void Configfile::config_filter(const char* filters_in)
 		user_filter = system_filter;
 		return;
 	}
+	user_filter.clear();
+
 	char filter_buf[100];
 	sprintf_s(filter_buf, sizeof(filter_buf), "%s", filters_in);
 	
