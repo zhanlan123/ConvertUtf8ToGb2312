@@ -67,19 +67,12 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 		memset(buf2, 0, sizeof(buf2));
 		if (!UTF_8ToGB2312(buf2, buf, strlen(buf)))
 		{//转换过程中出现问题
-			sucess = false;
-			break;
+			sprintf_s(buf2, sizeof(buf2), "%s", buf);
 		}
 		fputs(buf2, tmpfile);
 	}
 	File_manage::file_close(tmpfile);
 	File_manage::file_close(file);
-
-	if (!sucess)
-	{
-		File_manage::file_delete(path_tmp.c_str());
-		return;
-	}
 
 	if ((directory_new==NULL)||(strcmp(directory_old,directory_new)==0))
 	{//此处需要替换原文件
