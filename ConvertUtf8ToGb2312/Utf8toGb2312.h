@@ -11,22 +11,22 @@ class Utf8toGb2312
 {
 public:
 	static Utf8toGb2312* GetInstance();
-	//è½¬æ¢ç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶ï¼Œcascadeè®¾ç½®æ˜¯å¦è½¬æ¢å­ç›®å½•ä¸‹æ–‡ä»¶ï¼Œconfigé…ç½®éœ€è¦è½¬æ¢çš„æ–‡ä»¶ç±»å‹(å¦‚cpp)ï¼Œé»˜è®¤ä¸ºç³»ç»Ÿæ”¯æŒçš„å…­ç§æ–‡ä»¶
+	///×ª»»Ä¿Â¼ÏÂËùÓĞÎÄ¼ş£¬cascadeÉèÖÃÊÇ·ñ×ª»»×ÓÄ¿Â¼ÏÂÎÄ¼ş£¬configÅäÖÃĞèÒª×ª»»µÄÎÄ¼şÀàĞÍ(Èçcpp)£¬Ä¬ÈÏÎªÏµÍ³Ö§³ÖµÄÁùÖÖÎÄ¼ş
 	void Conv_Utf8_files(const char* directory_old,const Configfile config,const char* directory_new=NULL,  bool cascade = false);
-	//è½¬æ¢å•ä¸ªæ–‡ä»¶
+	///×ª»»µ¥¸öÎÄ¼ş
 	void Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename);
 private:
 	static Utf8toGb2312* instance;
-
 	Utf8toGb2312(){}
+
 	bool UTF_8ToGB2312(char*pOut, char *pInput, int pLen);
 	int UTF_8ToUnicode(char* pOutput, char *pInput);
 	void UnicodeToGB2312(char*pOut, char *pInput);
-	//è·å–utfç¼–ç é•¿åº¦
+	//»ñÈ¡utf±àÂë³¤¶È
 	int enc_get_utf8_size(const unsigned char pInput);
-	//æŸ¥æ‰¾unicodeå¯¹åº”çš„GB2312ç ,äºŒåˆ†æœç´¢
+	//²éÕÒunicode¶ÔÓ¦µÄGB2312Âë,¶ş·ÖËÑË÷
 	unsigned short SearchCodeTable(unsigned short unicode);
-	//è·å–æ–‡ä»¶åç¼€
+
 };
 
 
