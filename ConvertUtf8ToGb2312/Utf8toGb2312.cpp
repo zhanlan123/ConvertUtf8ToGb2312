@@ -54,35 +54,36 @@ void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile* c
 
 void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename)
 {
-
 	string path_old = string(directory_old).append("/").append(filename);
 
 	cout << "converting file " << path_old.c_str()<<endl;
 
 	string tmpfile_name = string(filename).append(".tmp");
 	string path_tmp = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
-	FILE *tmpfile,*file;
-	tmpfile = File_manage::file_open(path_tmp.c_str(), "w");
-	file = File_manage::file_open(path_old.c_str(), "r");
+	FILE *tmpfile = File_manage::file_open(path_tmp.c_str(), "w");
+	FILE *file = File_manage::file_open(path_old.c_str(), "r");
 	if ((tmpfile == NULL) || (file==NULL))
 		return;
-
+	bool sucess=true;
 	char buf[BUFFERSIZE], buf2[BUFFERSIZE*6];
 	while (fgets(buf, BUFFERSIZE, file))
 	{
 		memset(buf2, 0, sizeof(buf2));
 		if (!UTF_8ToGB2312(buf2, buf, strlen(buf)))
 		{//转换过程中出现问题
-
-			File_manage::file_close(tmpfile);
-			File_manage::file_close(file);
-			File_manage::file_delete(path_tmp.c_str());
-			return;
+			sucess = false;
+			break;
 		}
 		fputs(buf2, tmpfile);
 	}
 	File_manage::file_close(tmpfile);
 	File_manage::file_close(file);
+
+	if (!sucess)
+	{
+		File_manage::file_delete(path_tmp.c_str());
+		return;
+	}
 
 	if ((directory_new==NULL)||(strcmp(directory_old,directory_new)==0))
 	{//此处需要替换原文件
