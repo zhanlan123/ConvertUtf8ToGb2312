@@ -11,9 +11,9 @@ class Utf8toGb2312
 {
 public:
 	static Utf8toGb2312* GetInstance();
-	///转换目录下所有文件，cascade设置是否转换子目录下文件，config配置需要转换的文件类型(如cpp)，默认为系统支持的六种文件
+	//转换目录下所有文件，cascade设置是否转换子目录下文件，config配置需要转换的文件类型(如cpp)，默认为系统支持的六种文件
 	void Conv_Utf8_files(const char* directory_old,const Configfile config,const char* directory_new=NULL,  bool cascade = false);
-	///转换单个文件
+	//转换单个文件
 	void Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename);
 private:
 	static Utf8toGb2312* instance;
