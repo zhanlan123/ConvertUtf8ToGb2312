@@ -89,7 +89,7 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 
 bool Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 {
-	int res, i = 0, j = 0, num = 0;
+	int res, i = 0, j = 0;
 	char tempbuf[10];
 	memset(tempbuf, 0, sizeof(tempbuf));
 	while (i < pLen)
@@ -101,12 +101,10 @@ bool Utf8toGb2312::UTF_8ToGB2312(char*pOut, char *pInput, int pLen)
 		{
 			*(pOut + j) = *(pInput + i);
 			j += 1;
-
 		}
 		else{
 			UnicodeToGB2312(pOut + j, tempbuf);
 			j += 2;
-			num++;
 		}
 		i += res;
 	}
@@ -184,7 +182,7 @@ int Utf8toGb2312::UTF_8ToUnicode(char* pOutput, char *pInput)
 		*(pOutput + 3) = ((b1 << 6) & 0x40) + (b2 & 0x3F);
 		break;
 	default:
-		break;
+		return 0;
 	}
 	return len;
 }
@@ -195,7 +193,7 @@ void Utf8toGb2312::UnicodeToGB2312(char*pOut, char *pInput)
 	memcpy(&tmp, pInput, 2);
 	gb2312_tmp = SearchCodeTable(tmp);
 
-	gb2312_tmp = (gb2312_tmp >> 8 | gb2312_tmp << 8);//调整为大端，大地址存高位，小地址存低位
+	gb2312_tmp = (gb2312_tmp >> 8 | gb2312_tmp << 8);//调整为小端，大地址存高位，小地址存低位
 
 	memcpy(pOut, &gb2312_tmp, 2);
 }
