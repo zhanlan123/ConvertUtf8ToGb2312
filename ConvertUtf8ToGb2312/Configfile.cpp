@@ -80,19 +80,15 @@ char* Configfile::filter_splite(char* filters) const
 
 bool Configfile::check_file_support(const char* filename) const
 {
-	const char *pre = NULL, *p = filename;
+	const char *p = NULL;
 
-	while ((p = strchr(p,'.'))!=NULL)
-	{
-		pre = ++p;
-	}
-	if (pre == NULL)
+	if ((p = strrchr(filename, '.')) == NULL)
 		return false;
-
-	vector<string>::const_iterator iter=user_filter.begin();
+	p++;
+	auto iter=user_filter.begin();
 	for (; iter != user_filter.end();iter++)
 	{
-		if (strcmp(iter->c_str(), pre) == 0)
+		if (strcmp(iter->c_str(), p) == 0)
 			return true;
 	}
 
