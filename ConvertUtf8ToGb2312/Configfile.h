@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-using namespace std;
+using std::vector;
+using std::string;
 class Configfile
 {
 public:
