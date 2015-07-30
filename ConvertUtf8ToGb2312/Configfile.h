@@ -2,11 +2,6 @@
 
 #include <vector>
 using namespace std;
-
-static vector<string> system_filter = { "cpp", "h", "txt", "java", "hpp", "php" };
-
-static vector<char> system_splits = {',',' '};//支持使用空格或者','分开
-
 class Configfile
 {
 public:
@@ -27,5 +22,9 @@ private:
 	//使用system_splits中的分隔符分割字符串，返回指向字符串中第一个分隔符的指针，或者返回NULL
 	char* filter_splite(char* filters) const;
 	vector<string> user_filter;
+	
+	static bool inited;
+	static vector<string> system_filter; //系统默认转换的文件类型
+	static vector<char> system_splits;//支持使用空格或者','分开
 };
 
