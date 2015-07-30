@@ -2,10 +2,7 @@
 #include <stddef.h>
 #include "Configfile.h"
 
-#define BUFFERSIZE 1024
-
-using namespace std;
-
+const int BUFFERSIZE 1024
 
 class Utf8toGb2312
 {
