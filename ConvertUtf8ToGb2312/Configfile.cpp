@@ -2,6 +2,10 @@
 #include <string.h>
 #include <stdio.h>
 
+bool Configfile::inited=false;
+vector<string> Configfile::system_filter;
+vector<char> Configfile::system_splits;
+
 Configfile::Configfile(const char* filters)
 {
 	config_filter(filters);
@@ -19,6 +23,8 @@ Configfile::~Configfile()
 
 void Configfile::config_filter(const char* filters_in)
 {
+	if(!inited)
+	    init();
 	if (filters_in == NULL || strcmp(filters_in, "*") == 0)
 	{
 		user_filter = system_filter;
@@ -76,6 +82,20 @@ char* Configfile::filter_splite(char* filters) const
 	}
 
 	return result;
+}
+void Configfile::init()
+{
+	system_filter.push_back("cpp");
+	system_filter.push_back("h");
+	system_filter.push_back("txt");
+	system_filter.push_back("java");
+	system_filter.push_back("hpp");
+	system_filter.push_back("php");
+
+	system_splits.push_back(',');
+	system_splits.push_back(' ');
+
+	inited=true;
 }
 
 bool Configfile::check_file_support(const char* filename) const
