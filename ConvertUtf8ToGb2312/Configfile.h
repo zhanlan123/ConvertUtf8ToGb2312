@@ -23,6 +23,7 @@ private:
 	char* filter_splite(char* filters) const;
 	vector<string> user_filter;
 	
+	void init();
 	static bool inited;
 	static vector<string> system_filter; //系统默认转换的文件类型
 	static vector<char> system_splits;//支持使用空格或者','分开
