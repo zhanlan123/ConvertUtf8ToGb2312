@@ -32,7 +32,7 @@ void Configfile::config_filter(const char* filters_in)
 	char *p = 0, *pstart = filter_buf;
 	for (;;)
 	{
-		p = filter_splite(pstart);	//ÕÒµ½µÚÒ»¸ö·Ö¸î·û
+		p = filter_splite(pstart);	//æ‰¾åˆ°ç¬¬ä¸€ä¸ªåˆ†å‰²ç¬¦
 		if (p == NULL)
 		{
 			if (check_filter(pstart))
@@ -50,7 +50,7 @@ void Configfile::config_filter(const char* filters_in)
 }
 
 bool Configfile::check_filter(const char* filter) const
-{//ÅĞ¶Ï¸ø¶¨µÄÎÄ¼şÀàĞÍÊÇ·ñÖ§³Ö
+{//åˆ¤æ–­ç»™å®šçš„æ–‡ä»¶ç±»å‹æ˜¯å¦æ”¯æŒ
 	bool result=false;
 	vector<string>::const_iterator iter = system_filter.begin();
 	for (; iter != system_filter.end();iter++)
@@ -85,7 +85,7 @@ bool Configfile::check_file_support(const char* filename) const
 	if ((p = strrchr(filename, '.')) == NULL)
 		return false;
 	p++;
-	auto iter=user_filter.begin();
+	vector<string>::const_iterator iter=user_filter.begin();
 	for (; iter != user_filter.end();iter++)
 	{
 		if (strcmp(iter->c_str(), p) == 0)
