@@ -3,6 +3,8 @@
 #include <string>
 #include <io.h>
 
+using std::string;
+
 File_manage::File_manage()
 {
 }

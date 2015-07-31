@@ -52,7 +52,7 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 {
 	string path_old = string(directory_old).append("/").append(filename);
 
-	cout << "converting file " << path_old.c_str()<<endl;
+	std::cout << "converting file " << path_old.c_str()<<std::endl;
 
 	string tmpfile_name = string(filename).append(".tmp");
 	string path_tmp = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
