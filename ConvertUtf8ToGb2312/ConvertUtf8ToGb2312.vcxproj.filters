@@ -27,6 +27,9 @@
     <ClCompile Include="Utf8toGb2312.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Conv_util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Configfile.h">
@@ -39,6 +42,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Utf8toGb2312.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Conv_util.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

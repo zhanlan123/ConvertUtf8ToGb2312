@@ -14,8 +14,11 @@ Utf8toGb2312* Utf8toGb2312::GetInstance()
 	return instance;
 }
 
-void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile& config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
+void Utf8toGb2312::Conv_Utf8_files(const char* directory_old, const Configfile& config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
 {
+	if (!directory_old)
+		return;
+
 	//文件句柄
 	long   hFile = 0;
 	//文件信息
@@ -34,7 +37,7 @@ void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile& c
 			string cas_old_directory = string(directory_old).append("/").append(fileinfo.name);
 			const char* cas_new_directory = NULL;
 			if (directory_new != NULL){
-				string cas_new_directory_s=string(directory_new).append("/").append(fileinfo.name);
+				string cas_new_directory_s = string(directory_new).append("/").append(fileinfo.name);
 				cas_new_directory = cas_new_directory_s.c_str();
 			}
 			Conv_Utf8_files(cas_old_directory.c_str(), config, cas_new_directory, cascade);
@@ -49,20 +52,20 @@ void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile& c
 	_findclose(hFile);
 }
 
-void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* directory_new, const char* filename)
+void Utf8toGb2312::Conv_Utf8_file(const char* directory_old, const char* directory_new, const char* filename)
 {
 	string path_old = string(directory_old).append("/").append(filename);
 
-	std::cout << "converting file " << path_old.c_str()<<std::endl;
+	std::cout << "converting file " << path_old.c_str() << std::endl;
 
 	string tmpfile_name = string(filename).append(".tmp");
 	string path_tmp = directory_new == NULL ? string(path_old).append(".tmp") : string(directory_new).append("/").append(tmpfile_name);
 	FILE *tmpfile = File_manage::file_open(path_tmp.c_str(), "w");
 	FILE *file = File_manage::file_open(path_old.c_str(), "r");
-	if ((tmpfile == NULL) || (file==NULL))
+	if ((tmpfile == NULL) || (file == NULL))
 		return;
 
-	char buf[BUFFERSIZE], buf2[BUFFERSIZE*6];
+	char buf[BUFFERSIZE], buf2[BUFFERSIZE * 6];
 	while (fgets(buf, BUFFERSIZE, file))
 	{
 		memset(buf2, 0, sizeof(buf2));
@@ -75,9 +78,9 @@ void Utf8toGb2312::Conv_Utf8_file(const char* directory_old,const char* director
 	File_manage::file_close(tmpfile);
 	File_manage::file_close(file);
 
-	if ((directory_new==NULL)||(strcmp(directory_old,directory_new)==0))
+	if ((directory_new == NULL) || (strcmp(directory_old, directory_new) == 0))
 	{//此处需要替换原文件
-		string filename_pre=string(filename).append(".pre");
+		string filename_pre = string(filename).append(".pre");
 		string path_pre = string(directory_old).append("/").append(filename_pre);
 		File_manage::file_rename(directory_old, filename, filename_pre.c_str());
 		File_manage::file_rename(directory_old, tmpfile_name.c_str(), filename);
