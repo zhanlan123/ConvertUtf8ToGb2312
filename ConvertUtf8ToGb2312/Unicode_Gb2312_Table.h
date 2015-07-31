@@ -4,7 +4,7 @@ typedef struct
 	unsigned short gb2312;
 }UNICODE_GB;
 
-#define  TABLE_LEN  21792
+const  int TABLE_LEN = 21792;
 
 static UNICODE_GB unicode_gb_table[TABLE_LEN] = {//unicodeµ½gb2312±í
 { 0x00A4, 0xA1E8 }, { 0x00A7, 0xA1EC },

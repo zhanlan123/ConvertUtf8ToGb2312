@@ -2,8 +2,9 @@
 #include "Unicode_Gb2312_Table.h"
 #include "File_manage.h"
 #include <io.h>
-#include <string>
 #include <iostream>
+#include "Configfile.h"
+using std::string;
 
 Utf8toGb2312* Utf8toGb2312::instance = 0;
 Utf8toGb2312* Utf8toGb2312::GetInstance()
@@ -13,7 +14,7 @@ Utf8toGb2312* Utf8toGb2312::GetInstance()
 	return instance;
 }
 
-void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
+void Utf8toGb2312::Conv_Utf8_files(const char* directory_old,const Configfile& config, const char* directory_new /*= NULL*/, bool cascade /*= false*/)
 {
 	//нд╪Ч╬Д╠З
 	long   hFile = 0;
