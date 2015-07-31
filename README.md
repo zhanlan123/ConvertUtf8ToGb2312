@@ -1,6 +1,6 @@
 # ConvertUtf8ToGb2312
 
-sourceinsight是windows上少有的优秀源码阅读工具，由于linux文件经常使用utf-8编码，而sourceinsight并不支持utf-8，源码中的中文，会因为编码原因难以识别，会出现常见的中文乱码。本工程实现转码功能，将utf-8编码文件转换为Windows平台常见的gb2312编码文件。解决sourceinsight中文乱码问题
+sourceinsight是windows上少有的优秀源码阅读工具，由于linux文件经常使用utf-8编码，而sourceinsight并不支持utf-8，对文英文字母，各种编码存储无差别，而中文因为编码不同，存储方式各异，使用不正确的编码方式打开时便无法识别，出现中文乱码。本工程实现转码功能，将utf-8编码文件转换为Windows平台常见的gb2312编码文件。解决sourceinsight中文乱码问题
 
 ### Instructions：
 > 1. 转换当前目录和子目录的文件。
