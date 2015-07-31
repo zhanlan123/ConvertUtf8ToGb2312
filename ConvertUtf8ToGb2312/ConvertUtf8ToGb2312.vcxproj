@@ -79,14 +79,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Configfile.cpp" />
-    <ClCompile Include="Conv_util.cpp" />
+    <ClCompile Include="util.cpp" />
     <ClCompile Include="File_manage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utf8toGb2312.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Configfile.h" />
-    <ClInclude Include="Conv_util.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="File_manage.h" />
     <ClInclude Include="Unicode_Gb2312_Table.h" />
     <ClInclude Include="Utf8toGb2312.h" />
