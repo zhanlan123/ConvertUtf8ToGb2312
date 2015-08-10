@@ -10,3 +10,6 @@ sourceinsight是windows上少有的优秀源码阅读工具，由于linux文件�
 ### Notes：
 > 1. 使用vs2013可直接打开工程，若版本较低新建工程后直接copy添加源文件即可。
 > 2. 由于使用了windows平台的struct _finddata_t结构，故需要在vc环境下编译。
+
+### Updates：
+> 1.增加弹出对话框选择转换的目录。自定义默认转换文件类型仍需在main函数设置。
